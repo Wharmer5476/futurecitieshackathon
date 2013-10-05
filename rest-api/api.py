@@ -13,7 +13,7 @@ db_user = environ['futurecities_db_user']
 db_pass = environ['futurecities_db_pass']
 db_uri = 'mongodb://%s:%s@ds049548.mongolab.com:49548' % (db_user, db_pass)
 db_name = 'futurecitieshackathon'
-collection_name = 'population-densities'
+collection_name = 'pedestiranCounts'
 conn = MongoClient('mongodb://%s:%s@ds049548.mongolab.com:49548/futurecitieshackathon' % (db_user, db_pass))
 db = PedestrianCounts(conn, db_name, collection_name)
 
