@@ -57,4 +57,4 @@ def crowded(parameters):
     return pedestrian_counts(parameters)
 
 if __name__ == "__main__":
-    app.run(host="172.16.12.87", debug=True)
+    app.run(host="127.0.0.1", debug=True)
