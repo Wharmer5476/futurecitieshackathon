@@ -43,7 +43,6 @@ def parameters():
         stop = parse_timestamp(stop)
     limit = request.args.get('limit', None)
     p = Parameters(threshold, start, stop, limit)
-    print p
     return p
 
 def parse_timestamp(timestamp):
@@ -53,7 +52,7 @@ def parse_timestamp(timestamp):
         abort(400, 'start and stop should be in the format yyyy-mm-ddThh:mm')
 
 def pedestrian_counts(parameters):
-    return {"2013-10-10T13:00": db.counts(parameters.start, parameters.stop)}
+    return db.counts(parameters.start, parameters.stop)
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", debug=True)
