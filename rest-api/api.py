@@ -26,15 +26,10 @@ def index():
 def pedestrian_counts():
     return jsonify(pedestrianCounts=pedestrian_counts(parameters()))
 
-Parameters = namedtuple('Parameters', 'threshold start stop limit')
+Parameters = namedtuple('Parameters', 'start stop limit')
 
 def parameters():
     # TODO: validation
-    threshold = request.args.get('threshold', 10)
-    try:
-        threshold = int(threshold)
-    except ValueError:
-        abort(400, 'threshold should be integer value, e.g. 10')
     start = request.args.get('from', None)
     if start:
         start = parse_timestamp(start)
@@ -42,7 +37,12 @@ def parameters():
     if stop:
         stop = parse_timestamp(stop)
     limit = request.args.get('limit', None)
-    p = Parameters(threshold, start, stop, limit)
+    if limit:
+        try:
+            limit = int(limit)
+        except ValueError:
+            abort(400, 'limit should be integer value, e.g. 10')
+    p = Parameters(start, stop, limit)
     return p
 
 def parse_timestamp(timestamp):
@@ -52,7 +52,7 @@ def parse_timestamp(timestamp):
         abort(400, 'start and stop should be in the format yyyy-mm-ddThh:mm')
 
 def pedestrian_counts(parameters):
-    return db.counts(parameters.start, parameters.stop)
+    return db.counts(parameters.start, parameters.stop, parameters.limit)
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", debug=True)
