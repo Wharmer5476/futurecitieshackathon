@@ -1,6 +1,3 @@
-import pymongo
-
-
 class PedestrianCounts(object):
 
     def __init__(self, mongo_collection):
