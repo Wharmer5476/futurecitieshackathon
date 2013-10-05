@@ -35,8 +35,10 @@ def pedestrian_counts(parameters):
     return {
         "2013-10-10T13:00": {
             "mongo-id-1": {
-                "siteId": 1,
-                "siteName": "hyde park",
+                "site": {
+                    "id": 1,
+                    "name": "hyde park"
+                },
                 "borough": "Westminster",
                 "geocode": {
                     "lat": 42.0,
