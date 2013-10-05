@@ -2,6 +2,7 @@ from collections import namedtuple
 
 from flask import Flask, abort, jsonify, request, render_template, url_for
 
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -30,7 +31,6 @@ def parameters():
     limit = request.args.get('limit', None)
     return Parameters(threshold, start, stop)
 
-
 def pedestrian_counts(parameters):
     return {
         "2013-10-10T13:00": {
@@ -53,7 +53,6 @@ def pedestrian_counts(parameters):
 
 def crowded(parameters):
     return pedestrian_counts(parameters)
-
 
 if __name__ == "__main__":
     app.run(host="172.16.12.87", debug=True)
