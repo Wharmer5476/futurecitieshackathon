@@ -3,14 +3,15 @@ class PedestrianCounts(object):
     def __init__(self, mongo_collection):
         self.collection = mongo_collection
 
-    def counts(self, start=None, stop=None, limit=10):
+    def counts(self, start=None, stop=None, offset=0, limit=10):
+        print 'offset', offset
         spec = {}
         if start:
             spec['timestamp'] = {'$gt': start}
         if start and stop:
-            spec['timestamp']['$lt'] = stop
+            spec['timestamp']['$lte'] = stop
         if start:
-            return [self.reshape(i) for i in self.collection.find(spec, limit=limit)]
+            return [self.reshape(i) for i in self.collection.find(spec, skip=offset, limit=limit)]
 
         return [self.reshape(i) for i in self.collection.find(limit=limit)]
 
