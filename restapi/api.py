@@ -1,6 +1,6 @@
 from collections import namedtuple
 from os import environ
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from pymongo import MongoClient
 from flask import Flask, abort, jsonify, request, render_template, url_for
@@ -22,6 +22,11 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+@app.route('/api/pedestrian-counts/<timestamp>')
+def pedestrian_counts_by_timestamp(timestamp):
+    ts = parse_timestamp(timestamp)
+    return jsonify(pedestrianCounts=db.counts(ts, ts + timedelta(hours=1)))
+
 @app.route('/api/pedestrian-counts/')
 def pedestrian_counts():
     return jsonify(pedestrianCounts=pedestrian_counts(parameters()))
@@ -42,7 +47,7 @@ def parameters():
             offset = int(offset)
         except ValueError:
             abort(400, 'offset should be integer value, e.g. 10')
-    limit = request.args.get('limit', 10)
+    limit = request.args.get('limit', 100)
     if limit:
         try:
             limit = int(limit)
