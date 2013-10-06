@@ -4,6 +4,7 @@
 export futurecities_db_user=...
 export futurecities_db_pass=...
 
+workon futurecitieshackathon
 cd futurecitieshackathon/restapi
 pip install -r requirements.txt
 # for development
