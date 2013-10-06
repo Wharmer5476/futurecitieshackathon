@@ -1,6 +1,9 @@
 ### Running the api
 
 ```
+export futurecities_db_user=...
+export futurecities_db_pass=...
+
 cd futurecitieshackathon/restapi
 pip install -r requirements.txt
 # for development
